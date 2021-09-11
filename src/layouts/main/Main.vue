@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <Sidenav class="sidenav" />
-        <header class="header">...</header>
+        <Toolbar class="header">...</Toolbar>
         <div class="content">
             <router-view />
         </div>
@@ -10,9 +10,11 @@
 
 <script>
 import Sidenav from './components/Sidenav.vue';
+import Toolbar from './components/Toolbar.vue';
 export default {
     components: {
-        Sidenav
+        Sidenav,
+        Toolbar
   }
 }
 </script>
@@ -34,7 +36,7 @@ export default {
 .header
     grid-column 2 /3
     grid-row 1 / 2
-    background-color red
+    box-shadow 0px 0px 2px lightgray
 
 .content
     grid-column 2
