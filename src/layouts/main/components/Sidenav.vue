@@ -7,18 +7,15 @@
         </div>
         <nav class="nav-menu">
              <ul class="nav-list">
-                <li class="nav-item"><router-link to="/home">
-                    <font-awesome-icon icon="chart-bar" />
-                    Dashboard
-                </router-link></li>
-                <li class="nav-item"><router-link to="#">
-                    <font-awesome-icon icon="check-circle" />
-                    Tarefas
-                </router-link></li>
-                <li class="nav-item"><router-link to="#">
-                    <font-awesome-icon icon="cogs" />
-                    Configrações
-                </router-link></li>
+                <li v-for="(menuItem, key) of menuItens" 
+                    :key="key" 
+                    class="nav-item" 
+                    :class="{'active': menuItem.route == $route.path}">
+                    <router-link :to="menuItem.route">
+                        <font-awesome-icon :icon="menuItem.icon" />
+                        {{ menuItem.label }}
+                    </router-link>
+                </li>
             </ul>
         </nav>
     </div>
@@ -26,7 +23,27 @@
 
 <script>
 export default {
-
+    data() {
+        return {
+            menuItens: [
+                {
+                    label: 'Dashboard',
+                    icon: 'chart-bar',
+                    route: '/home'
+                },
+                {
+                    label: 'Tarefas',
+                    icon: 'check-circle',
+                    route: '#'
+                },
+                {
+                    label: 'Configurações',
+                    icon: 'cogs',
+                    route: '#'
+                }
+            ]
+        }
+    }
 }
 </script>
 
