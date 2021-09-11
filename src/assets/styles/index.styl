@@ -1,7 +1,51 @@
 @import "./_colors.styl"
+@import "./_fonts.styl"
+
+* 
+  margin: 0
+  padding: 0
+  box-sizing: border-box
 
 #app
     color $color
+    font-family SVN-Gilroy
+    font-weight normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
 
 .bg-primary 
   background-color $primary-color
+
+input
+    border solid 2px $input-color
+    outline none
+
+    &:focus
+        border solid 2px $primary-color
+
+button
+    border none
+    font-family: SVN-Gilroy
+    color white
+
+a
+    color $primary-color
+
+.sidenav-container
+    background-color: $primary-color
+
+    .nav-item
+        padding: 4px 0
+        border-top: 1px solid $primary-border-color
+    
+        &:last-child
+            border-bottom: 1px solid $primary-border-color
+
+        &:hover
+            background-color: $primary-selected-color
+    
+    a
+      color: $white
+
+    
+
