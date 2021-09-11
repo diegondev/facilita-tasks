@@ -1,12 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import configureFontAwesome from './services/font-awesomw';
 
-Vue.config.productionTip = false
+configureFontAwesome(Vue);
+
+Vue.config.productionTip = false;
 
 import '@/assets/styles/index.styl';
 
 new Vue({
   router,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
