@@ -14,7 +14,6 @@
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
 
-
 input
     border solid 2px $input-color
     outline none
@@ -30,7 +29,8 @@ button
 a
     color $primary-color
 
-
+.text-emphasis
+    color $primary-color
 
 // MAIN LAYOUT STYLES
 
@@ -72,12 +72,27 @@ a
 .categories-list-container
     background-color $side-bg-color
 
-    .badge
-        color $white
-        background-color $primary-color
 
-        &.urgent
-            background-color $red
+// GENERAL COMPONENTS STYLES
 
-        &.important
-            background-color $yellow
+// BADGE STYLES
+.badge
+    color $white
+    background-color $primary-color
+
+    &.urgent
+        background-color $red
+
+    &.important
+        background-color $yellow
+
+// PILL STYLES
+.pill
+    color $white
+    background-color $primary-color
+
+    &.urgent
+        background-color $red
+
+    &.important
+        background-color $yellow

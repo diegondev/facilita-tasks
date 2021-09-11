@@ -22,6 +22,7 @@
 
 <script>
 export default {
+    name: 'Login',
     methods: {
         login: function () {
             // Login validation

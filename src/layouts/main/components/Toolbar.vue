@@ -13,7 +13,7 @@
 <script>
 import avatar from '../../../assets/images/avatar.jpeg';
 export default {
-    
+    name: 'Toolbar',
     data() {
         return {
             user: {
@@ -31,6 +31,7 @@ export default {
     display flex
     justify-content: flex-end
     padding 0 32px
+    z-index 1
 
 .user-info
     display contents
