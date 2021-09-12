@@ -3,7 +3,9 @@ import {
     faUserSecret,
     faChartBar,
     faCheckCircle,
-    faCogs
+    faCogs,
+    faSearch,
+    faPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -12,7 +14,9 @@ export default function configureFontAwesome(vue) {
         faUserSecret,
         faChartBar,
         faCheckCircle,
-        faCogs
+        faCogs,
+        faSearch,
+        faPlus
     );
     vue.component('font-awesome-icon', FontAwesomeIcon);
 }

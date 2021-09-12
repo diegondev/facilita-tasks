@@ -1,6 +1,8 @@
 @import "./_colors.styl"
 @import "./_fonts.styl"
 
+$font-family = SVN-Gilroy
+
 * 
     margin 0
     padding 0
@@ -8,23 +10,27 @@
 
 #app
     color $color
-    background-color $bg-color
-    font-family SVN-Gilroy
+    font-family $font-family
     font-weight normal
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
 
-input
-    border solid 2px $input-color
-    outline none
+// CHANGE COLOR OF INPUT PLACEHOLDER PLACEHOLDER
+::placeholder 
+  color $input-color
 
-    &:focus
-        border solid 2px $primary-color
+:-ms-input-placeholder  // Internet Explorer 10-11 
+ color $input-color
+
+::-ms-input-placeholder  // Microsoft Edge 
+ color $input-color
+
 
 button
     border none
-    font-family SVN-Gilroy
+    font-family $font-family
     color white
+    cursor pointer
 
 a
     color $primary-color
@@ -56,8 +62,15 @@ a
     a
       color $white
 
+// BACKGROUND COLOR STYLES
+.bg-defalt
+    background-color $bg-color
+
 .bg-primary 
   background-color $primary-color
+
+.bg-success
+    background-color $success-color
 
 // TOOLBAR STYLES 
 .toolbar
@@ -96,3 +109,37 @@ a
 
     &.important
         background-color $yellow
+
+
+// INPUT STYLES
+.input-container
+    .input-field
+        font-family $font-family
+        font-weight bold
+        border solid 2px $input-color
+        outline none
+ 
+        &:focus
+            border solid 2px $primary-color
+
+.input-icon
+    color $input-color
+
+// CARD STYLES
+.card-container
+    background-color $white
+    box-shadow: 1px 1px 5px 0px $input-color
+
+// FLOAT ACTION BUTTON STYLES
+$float-action-button-color = $success-color
+
+.float-action-button
+    background-color $float-action-button-color
+    color $white
+    border 1px solid darken($float-action-button-color, 2%)
+
+    &:hover
+        background-color darken($float-action-button-color, 5%)
+
+    &:active
+        background-color darken($float-action-button-color, 10%)
