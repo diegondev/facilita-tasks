@@ -92,7 +92,7 @@ $ npm run serve
 
 ## Autor
 <div style="display:flex;flex-direction:column;align-items: center">
-    <a href="https://blog.rocketseat.com.br/author/thiago/">
+    <a href="#">
  <img style="border-radius: 50%;" src="./src/assets/images/avatar.jpeg" width="100px;" alt=""/>
  <br />
  <sub><b>Diego Nascimento</b></sub>
