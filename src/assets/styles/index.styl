@@ -34,9 +34,38 @@ button
     font-family $font-family
     color white
     cursor pointer
+    height 52px
+    border-radius 5px
+    padding: 0 24px
+
+    &:disabled
+        background-color $gray
 
 a
     color $primary-color
+
+input[type="radio"]
+    -webkit-appearance: none;
+    display flex
+    width 24px
+    height 24px
+    border-radius 50%
+    border 3px solid $input-color
+    justify-content center
+    align-items center
+
+    &:before {
+        content ''
+        width 10px
+        height 10px
+        border-radius 50%
+    }
+
+    &:checked:before {
+        background $primary-color
+    }
+    
+
 
 .text-emphasis
     color $primary-color
@@ -74,6 +103,29 @@ a
 
 .bg-success
     background-color $success-color
+
+.bg-danger, .bg-error
+    background-color $error-color
+
+.bg-warm
+    background-color $warn-color
+
+//TEXT COLOR STYLES
+// BACKGROUND COLOR STYLES
+.text-defalt
+    color $bg-color
+
+.text-primary 
+    color $primary-color
+
+.text-success
+    color $success-color
+
+.text-danger, .text-error
+    color $error-color
+
+.text-warm
+    color $warn-color
 
 // TOOLBAR STYLES 
 .toolbar
@@ -168,3 +220,17 @@ $float-action-button-color = $success-color
     .more-menu-list-item
         &:hover
             background-color $bg-color
+
+
+// MODAL STYLES
+.modal-container
+    background-color  alpha(darken($primary-color, 40%), .4)
+    z-index: $z-index-modal
+
+    .card-container
+        box-shadow: 0px 0px 20px 0px alpha(black, .2)
+
+// DIALOG STYLES
+.dialog-content
+    .dialog-figure
+        background-color $checkbox-color

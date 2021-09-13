@@ -7,7 +7,10 @@ import {
     faSearch,
     faPlus,
     faCheck,
-    faEllipsisV
+    faEllipsisV,
+    faTimes,
+    faTrash,
+    faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -20,7 +23,10 @@ export default function configureFontAwesome(vue) {
         faSearch,
         faPlus,
         faCheck,
-        faEllipsisV
+        faEllipsisV,
+        faTimes,
+        faTrash,
+        faTrashAlt
     );
     vue.component('font-awesome-icon', FontAwesomeIcon);
 }

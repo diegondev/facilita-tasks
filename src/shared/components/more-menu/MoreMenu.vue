@@ -86,4 +86,5 @@ export default {
     white-space nowrap
     padding 8px 16px
     border-radius 5px
+    cursor pointer
 </style>
