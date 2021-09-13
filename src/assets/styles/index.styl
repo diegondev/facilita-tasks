@@ -1,7 +1,245 @@
 @import "./_colors.styl"
+@import "./_fonts.styl"
+
+$font-family = SVN-Gilroy
+$box-shadow-default = 1px 1px 5px 0px $input-color
+$box-shadow-layout = 1px 1px 5px 0px alpha($gray, 20%)
+$z-index-overlay-menus = 10
+$z-index-modal = 100
+
+* 
+    margin 0
+    padding 0
+    box-sizing border-box
 
 #app
     color $color
+    font-family $font-family
+    font-weight normal
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+
+// CHANGE COLOR OF INPUT PLACEHOLDER PLACEHOLDER
+::placeholder 
+  color $input-color
+
+:-ms-input-placeholder  // Internet Explorer 10-11 
+ color $input-color
+
+::-ms-input-placeholder  // Microsoft Edge 
+ color $input-color
+
+
+button
+    border none
+    font-family $font-family
+    color white
+    cursor pointer
+    height 52px
+    border-radius 5px
+    padding: 0 24px
+
+    &:disabled
+        background-color $gray
+
+a
+    color $primary-color
+
+input[type="radio"]
+    -webkit-appearance: none;
+    display flex
+    width 24px
+    height 24px
+    border-radius 50%
+    border 3px solid $input-color
+    justify-content center
+    align-items center
+
+    &:before {
+        content ''
+        width 10px
+        height 10px
+        border-radius 50%
+    }
+
+    &:checked:before {
+        background $primary-color
+    }
+    
+
+
+.text-emphasis
+    color $primary-color
+
+// MAIN LAYOUT STYLES
+
+// SIDENAV STYLES
+.sidenav-container
+    background-color $primary-color
+    border-right: 1px solid #e3eff6
+
+    .nav-item
+        padding 4px 0
+        border 1px solid $primary-border-color
+        border-bottom none
+    
+        &:last-child
+            border-bottom 1px solid $primary-border-color
+
+        &:hover
+            background-color $primary-selected-color
+
+        &.active
+            background-color $primary-selected-color
+    
+    a
+      color $white
+
+// BACKGROUND COLOR STYLES
+.bg-defalt
+    background-color $bg-color
 
 .bg-primary 
   background-color $primary-color
+
+.bg-success
+    background-color $success-color
+
+.bg-danger, .bg-error
+    background-color $error-color
+
+.bg-warm
+    background-color $warn-color
+
+//TEXT COLOR STYLES
+.text-defalt
+    color $bg-color
+
+.text-primary 
+    color $primary-color
+
+.text-success
+    color $success-color
+
+.text-danger, .text-error
+    color $error-color
+
+.text-warm
+    color $warn-color
+
+// TOOLBAR STYLES 
+.toolbar
+    background-color $white
+    box-shadow $box-shadow-layout
+
+.user-info
+    .user-data
+        .user-occupation
+            color $primary-color
+
+// MAIN PAGE STYLES
+.categories-list-container
+    background-color $side-bg-color
+    box-shadow $box-shadow-layout
+
+.category-list
+    :hover
+        color $primary-color
+
+    .category-item.selected
+        color $primary-color
+
+
+// GENERAL COMPONENTS STYLES
+
+// BADGE STYLES
+.badge
+    color $white
+    background-color $primary-color
+
+    &.urgent
+        background-color $red
+
+    &.important
+        background-color $yellow
+
+// PILL STYLES
+.pill
+    color $white
+    background-color $primary-color
+
+    &.urgent
+        background-color $red
+
+    &.important
+        background-color $yellow
+
+
+// INPUT STYLES
+.input-container
+    .input-field
+        font-family $font-family
+        font-weight bold
+        border solid 2px $input-color
+        outline none
+ 
+        &:focus
+            border solid 2px $primary-color
+
+.input-icon
+    color $input-color
+
+// CARD STYLES
+.card-container
+    background-color $white
+    box-shadow: $box-shadow-default
+
+// FLOAT ACTION BUTTON STYLES
+$float-action-button-color = $success-color
+
+.float-action-button
+    background-color $float-action-button-color
+    color $white
+    border 1px solid darken($float-action-button-color, 2%)
+
+    &:hover
+        background-color darken($float-action-button-color, 5%)
+
+    &:active
+        background-color darken($float-action-button-color, 10%)
+
+
+// CHECKBOX STYLES
+.checkbox-container
+    background-color $checkbox-color
+    color $white
+
+    &.checked
+        background-color $success-color
+
+// MORE MENU STYLES
+.more-menu-collapse
+    background-color $white
+    box-shadow $box-shadow-default
+    z-index $z-index-overlay-menus
+
+    .icon
+        color $primary-color
+
+    .more-menu-list-item
+        &:hover
+            background-color $bg-color
+
+
+// MODAL STYLES
+.modal-container
+    background-color  alpha(darken($primary-color, 40%), .4)
+    z-index: $z-index-modal
+
+    .card-container
+        box-shadow: 0px 0px 20px 0px alpha(black, .2)
+
+// DIALOG STYLES
+.dialog-content
+    .dialog-figure
+        background-color $checkbox-color
