@@ -41,7 +41,11 @@
                     </template>
                 </TaskItem>
 
-                <FloatActionButton icon="plus" @click="onAddClick" />
+                <FloatActionButton icon="plus" @click="onOpenCreateTaskDialog" />
+                
+                <CreateTaskDialog :open="modalCreateTask" @onClose="onCloseCreateTaskDialog"/>
+                <DeleteTaskDialog :open="modalDeleteConfimation" @onClose="onCloseDeleteTaskDialog"/>
+                
             </div>
         </main>
     </div>
@@ -53,6 +57,8 @@ import Input from '../../shared/components/input/Input.vue';
 import FloatActionButton from '../../shared/components/float-action-button/FloatActionButton.vue';
 import MoreMenu from '../../shared/components/more-menu/MoreMenu.vue';
 import TaskItem from './components/tasks/task-item/TaskItem.vue';
+import CreateTaskDialog from './components/tasks/create-task-dialog/CreateTaskDialog.vue';
+import DeleteTaskDialog from './components/tasks/delete-task-dialog/DeleteTaskDialog.vue';
 
 function filteredTaskList() {
     return this.tasks
@@ -67,8 +73,20 @@ function filteredTaskList() {
         });
 }
 
-function onAddClick() {
-    console.log('clicou')
+function onOpenCreateTaskDialog() {
+    this.modalCreateTask = true
+}
+
+function onCloseCreateTaskDialog() {
+    this.modalCreateTask = false
+}
+
+function onOpenDeleteTaskDialog() {
+    this.modalDeleteConfimation = true
+}
+
+function onCloseDeleteTaskDialog() {
+    this.modalDeleteConfimation = false
 }
 
 export default {
@@ -77,37 +95,44 @@ export default {
         Badge,
         Input,
         FloatActionButton,
+        MoreMenu,
         TaskItem,
-        MoreMenu
+        CreateTaskDialog,
+        DeleteTaskDialog
     },
     data() {
         return {
             search: '',
             categories: [
                 { name: 'Todas', },
-                { name: 'Urgentes', quantity: 1, urgency: 'urgent', },
+                { name: 'Urgentes',    quantity: 1,   urgency: 'urgent', },
                 { name: 'Importantes', quantity: 100, urgency: 'important', },
                 { name: 'Outras', },
                 { name: 'Finalizadas', }
             ],
             tasks: [
                 {title: 'Planejar desenvolvimento do app TodoList', checked: false}, 
-                {title: 'Criar projeto Vue.js', checked: false, category: 'Urgente'}, 
-                {title: 'Montar telas HTML/CSS', checked: true, category: 'Importante'}, 
-                {title: 'Separar componentes', checked: false},
+                {title: 'Criar projeto Vue.js',  checked: false, category: 'Urgente'}, 
+                {title: 'Montar telas HTML/CSS', checked: true,  category: 'Importante'}, 
+                {title: 'Separar componentes',   checked: false},
                 {title: 'Programar componentes', checked: false},
             ],
             taskItemMenus: [
-                { title: 'Editar', action: () => {} },
-                { title: 'Excluir', action: () => {} }
-            ] 
+                { title: 'Editar', action: onOpenDeleteTaskDialog.bind(this) },
+                { title: 'Excluir', action: onOpenDeleteTaskDialog.bind(this) }
+            ],
+            modalCreateTask: false,
+            modalDeleteConfimation: false
         }
   },
   computed: {
-      filteredTaskList
+        filteredTaskList
   },
   methods: {
-      onAddClick
+        onOpenCreateTaskDialog,
+        onCloseCreateTaskDialog,
+        onOpenDeleteTaskDialog,
+        onCloseDeleteTaskDialog
   }
 }
 </script>
@@ -168,6 +193,4 @@ export default {
 
 .task-item
     width 100%
-
-
 </style>
