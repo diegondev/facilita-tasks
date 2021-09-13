@@ -45,7 +45,7 @@ Projeto de front-end para seleção técnica da empresa App Facilita. O projeto 
 
 ## Demonstração da aplicação
 
-O deploy da aplicação pode ser encontrada [AQUI](diegonascimento.dev/facilita), e a seguir prints das telas implementadas:
+O deploy da aplicação pode ser encontrada [AQUI](https://facilita-tasks.vercel.app/login), e a seguir prints das telas implementadas:
 
 Tela de Login:
 
