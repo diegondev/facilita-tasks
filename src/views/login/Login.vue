@@ -7,13 +7,10 @@
             <form action="#">
                 <h3 class="form-title">Entre com seus dados de accesso.</h3>
 
-                <label for="username">Nome de usuário ou e-mail</label>
-                <input id="username" name="username" type="text">
+                <Input label="Nome de usuário ou e-mail" type="text" name="username"/>
+                <Input label="Senha" type="password" name="password"/>
 
-                <label for="password">Senha</label>
-                <input id="password" type="password">
-
-                <button class="bg-primary" @click="login">Entrar</button>
+                <button class="bg-success" @click="login">Entrar</button>
                 <router-link to="/forget-password">Esqueci minha senha</router-link>
             </form>
         </main>
@@ -21,8 +18,12 @@
 </template>
 
 <script>
+import Input from '../../shared/components/input/Input.vue';
 export default {
     name: 'Login',
+    components: {
+        Input
+    },
     methods: {
         login: function () {
             // Login validation
@@ -63,15 +64,6 @@ export default {
             margin-bottom 42px
             font-weight bold
 
-        label
-            font-size 12px
-            margin 8px 0
-
-        input
-            height 52px
-            border-radius 5px
-            padding 0 8px
-
         button
             margin-top 18px
             margin-bottom 42px
@@ -79,5 +71,8 @@ export default {
     a
         width 100%
         font-size 12px
+
+.input-container
+    margin 0
 
 </style>
