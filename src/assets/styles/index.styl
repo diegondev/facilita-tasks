@@ -2,6 +2,9 @@
 @import "./_fonts.styl"
 
 $font-family = SVN-Gilroy
+$box-shadow-default = 1px 1px 5px 0px $input-color
+$z-index-overlay-menus = 10
+$z-index-modal = 100
 
 * 
     margin 0
@@ -128,7 +131,7 @@ a
 // CARD STYLES
 .card-container
     background-color $white
-    box-shadow: 1px 1px 5px 0px $input-color
+    box-shadow: $box-shadow-default
 
 // FLOAT ACTION BUTTON STYLES
 $float-action-button-color = $success-color
@@ -143,3 +146,25 @@ $float-action-button-color = $success-color
 
     &:active
         background-color darken($float-action-button-color, 10%)
+
+
+// CHECKBOX STYLES
+.checkbox-container
+    background-color $checkbox-color
+    color $white
+
+    &.checked
+        background-color $success-color
+
+// MORE MENU STYLES
+.more-menu-collapse
+    background-color $white
+    box-shadow $box-shadow-default
+    z-index $z-index-overlay-menus
+
+    .icon
+        color $primary-color
+
+    .more-menu-list-item
+        &:hover
+            background-color $bg-color

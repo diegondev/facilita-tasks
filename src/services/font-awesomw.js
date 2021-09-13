@@ -5,7 +5,9 @@ import {
     faCheckCircle,
     faCogs,
     faSearch,
-    faPlus
+    faPlus,
+    faCheck,
+    faEllipsisV
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -16,7 +18,9 @@ export default function configureFontAwesome(vue) {
         faCheckCircle,
         faCogs,
         faSearch,
-        faPlus
+        faPlus,
+        faCheck,
+        faEllipsisV
     );
     vue.component('font-awesome-icon', FontAwesomeIcon);
 }
