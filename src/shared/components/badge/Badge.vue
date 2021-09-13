@@ -39,6 +39,7 @@ export default {
     height 20px
     font-size 10px
     border-radius 50%
+    pointer-events none
 
     .badge-content
         height 100%
