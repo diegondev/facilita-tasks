@@ -107,7 +107,7 @@ export default {
             categories: [
                 { name: 'Todas', },
                 { name: 'Urgentes',    quantity: 1,   urgency: 'urgent', },
-                { name: 'Importantes', quantity: 100, urgency: 'important', },
+                { name: 'Importantes', quantity: 2, urgency: 'important', },
                 { name: 'Outras', },
                 { name: 'Finalizadas', }
             ],
@@ -171,7 +171,7 @@ export default {
         cursor pointer
 
     .category-item-icon
-        font-size 12px
+        font-size 10px
         margin-right 8px
 
 .input-search

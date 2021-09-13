@@ -56,6 +56,8 @@ export default {
 
 <style lang="stylus" scoped>
 .more-menu-container
+    display flex
+    align-items center
     position relative
 
 .more-menu-icon
@@ -69,8 +71,8 @@ export default {
 .more-menu-collapse
     display flex
     position absolute
-    top -8px
-    right -4px
+    top 0
+    right 0
     padding 8px 0
     border-radius 5px
 

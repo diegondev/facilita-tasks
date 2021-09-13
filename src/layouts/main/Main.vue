@@ -37,7 +37,6 @@ export default {
 .header
     grid-column 2 /3
     grid-row 1 / 2
-    box-shadow 0px 0px 2px lightgray
 
 .content
     grid-column 2
