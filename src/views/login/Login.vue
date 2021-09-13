@@ -58,7 +58,7 @@ export default {
             display flex
             flex-direction column
             justify-content center
-            width 35%
+            width 40%
 
         .form-title
             margin-bottom 42px
@@ -74,5 +74,18 @@ export default {
 
 .input-container
     margin 0
+
+@media (max-width: 650px)
+    .login
+        flex-direction column
+
+    main
+        form
+            width 90%
+
+@media (max-width: 900px)
+    main
+        form
+            width 80%
 
 </style>
