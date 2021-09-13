@@ -6,7 +6,8 @@
                 <li 
                     v-for="(category, key) of categories" 
                     :key="key" 
-                    class="category-item">
+                    class="category-item" :class="{'selected': key == 0}">
+                    <font-awesome-icon class="category-item-icon" icon="chevron-right"/>
                     {{ category.name }}
                     <Badge v-if="category.quantity"
                         :urgency="category.urgency"
@@ -106,14 +107,14 @@ export default {
             categories: [
                 { name: 'Todas', },
                 { name: 'Urgentes',    quantity: 1,   urgency: 'urgent', },
-                { name: 'Importantes', quantity: 100, urgency: 'important', },
+                { name: 'Importantes', quantity: 2, urgency: 'important', },
                 { name: 'Outras', },
                 { name: 'Finalizadas', }
             ],
             tasks: [
-                {title: 'Planejar desenvolvimento do app TodoList', checked: false}, 
-                {title: 'Criar projeto Vue.js',  checked: false, category: 'Urgente'}, 
-                {title: 'Montar telas HTML/CSS', checked: true,  category: 'Importante'}, 
+                {title: 'Planejar desenvolvimento do app TodoList', checked: true, category: 'Urgente'}, 
+                {title: 'Criar projeto Vue.js',  checked: false, category: 'Importante'}, 
+                {title: 'Montar telas HTML/CSS', checked: false,  category: 'Importante'}, 
                 {title: 'Separar componentes',   checked: false},
                 {title: 'Programar componentes', checked: false},
             ],
@@ -169,22 +170,16 @@ export default {
         margin-bottom 18px
         cursor pointer
 
-        &:before
-            content ''
-            display inline-block
-            margin-right 8px
-            height 9px
-            width 9px
-            background-image url('../../assets/icons/chevron-right-solid.svg')
-            background-repeat no-repeat
-            background-size contain
-            background-position center
+    .category-item-icon
+        font-size 10px
+        margin-right 8px
 
 .input-search
     margin 24px 0
 
 .container-tasks
     display flex
+    width 50%
     flex-direction column
     padding-top 120px
 

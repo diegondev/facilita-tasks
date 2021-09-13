@@ -10,7 +10,8 @@ import {
     faEllipsisV,
     faTimes,
     faTrash,
-    faTrashAlt
+    faTrashAlt,
+    faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -26,7 +27,8 @@ export default function configureFontAwesome(vue) {
         faEllipsisV,
         faTimes,
         faTrash,
-        faTrashAlt
+        faTrashAlt,
+        faChevronRight
     );
     vue.component('font-awesome-icon', FontAwesomeIcon);
 }

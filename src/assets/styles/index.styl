@@ -3,6 +3,7 @@
 
 $font-family = SVN-Gilroy
 $box-shadow-default = 1px 1px 5px 0px $input-color
+$box-shadow-layout = 1px 1px 5px 0px alpha($gray, 20%)
 $z-index-overlay-menus = 10
 $z-index-modal = 100
 
@@ -111,7 +112,6 @@ input[type="radio"]
     background-color $warn-color
 
 //TEXT COLOR STYLES
-// BACKGROUND COLOR STYLES
 .text-defalt
     color $bg-color
 
@@ -130,6 +130,7 @@ input[type="radio"]
 // TOOLBAR STYLES 
 .toolbar
     background-color $white
+    box-shadow $box-shadow-layout
 
 .user-info
     .user-data
@@ -139,6 +140,14 @@ input[type="radio"]
 // MAIN PAGE STYLES
 .categories-list-container
     background-color $side-bg-color
+    box-shadow $box-shadow-layout
+
+.category-list
+    :hover
+        color $primary-color
+
+    .category-item.selected
+        color $primary-color
 
 
 // GENERAL COMPONENTS STYLES
