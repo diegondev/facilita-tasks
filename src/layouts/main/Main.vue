@@ -23,7 +23,6 @@ export default {
 <style lang="stylus" scoped>
 .main-container 
     display grid
-    width 100%
     height 100vh
     grid-template-columns 106px 1fr
     grid-template-rows 84px 1fr
@@ -35,10 +34,12 @@ export default {
     grid-row 1 / 3
 
 .header
+    width calc(100vw - 106px)
     grid-column 2 /3
     grid-row 1 / 2
 
 .content
+    width calc(100vw - 106px)
     grid-column 2
     grid-row 2
     grid-area 'content'

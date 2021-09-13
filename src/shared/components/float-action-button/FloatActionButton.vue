@@ -26,7 +26,7 @@ export default {
     height 78px
     border-radius 50%
 
-    position absolute
+    position fixed
     bottom 24px
     right 24px
 

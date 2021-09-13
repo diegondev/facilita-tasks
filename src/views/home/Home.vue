@@ -8,7 +8,7 @@
                     :key="key" 
                     class="category-item" :class="{'selected': key == 0}">
                     <font-awesome-icon class="category-item-icon" icon="chevron-right"/>
-                    {{ category.name }}
+                    <span class="category-item-title">{{ category.name }}</span>
                     <Badge v-if="category.quantity"
                         :urgency="category.urgency"
                         :value="category.quantity">
@@ -141,7 +141,7 @@ export default {
 <style lang="stylus" scoped>
 .home
   display flex
-  flex row
+  flex-direction row
   height 100%
 
   aside
@@ -167,12 +167,18 @@ export default {
     list-style none
 
     .category-item
+        display flex
+        flex-wrap nowrap
+        align-items center
         margin-bottom 18px
         cursor pointer
+    
+        .categorty-item-title
+            margin-right 8px
 
-    .category-item-icon
-        font-size 10px
-        margin-right 8px
+        .category-item-icon
+            font-size 10px
+            margin-right 8px
 
 .input-search
     margin 24px 0
@@ -188,4 +194,34 @@ export default {
 
 .task-item
     width 100%
+
+// @media (max-width: 650px)
+//     .home
+//         flex-direction column
+    
+
+@media (max-width: 1082px)
+    .home
+        flex-direction column
+
+        aside
+            width 100%
+            padding 16px
+
+    .category-list
+        display flex
+        flex-direction row
+        flex-wrap wrap
+        align-items center
+        margin 16px
+
+        .category-item
+            margin-left 16px
+
+    .container-tasks
+        width 60%
+
+@media (max-width: 650px)
+    .container-tasks
+        width 90%
 </style>
