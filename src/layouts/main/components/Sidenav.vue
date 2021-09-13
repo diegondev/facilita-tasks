@@ -23,6 +23,7 @@
 
 <script>
 export default {
+    name: 'Sidenav',
     data() {
         return {
             menuItens: [
@@ -53,6 +54,7 @@ export default {
 .sidenav-container
     display flex
     flex-direction column
+    z-index 1
 
 .nav-logo
     height 84px

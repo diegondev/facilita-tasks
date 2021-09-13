@@ -12,10 +12,11 @@
 import Sidenav from './components/Sidenav.vue';
 import Toolbar from './components/Toolbar.vue';
 export default {
+    name: 'Home',
     components: {
         Sidenav,
         Toolbar
-  }
+    }
 }
 </script>
 
