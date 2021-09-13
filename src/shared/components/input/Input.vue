@@ -7,7 +7,7 @@
         :placeholder="placeholder"
         :value="value"
         @input="onInput($event.target.value)">
-        <font-awesome-icon class="input-icon" :icon="icon" />
+        <font-awesome-icon v-if="icon" class="input-icon" :icon="icon" />
     </div>
 </template>
 

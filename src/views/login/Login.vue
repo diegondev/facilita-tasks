@@ -73,8 +73,6 @@ export default {
             padding 0 8px
 
         button
-            height 52px
-            border-radius 5px
             margin-top 18px
             margin-bottom 42px
 
