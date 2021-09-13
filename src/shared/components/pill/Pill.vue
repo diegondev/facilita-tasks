@@ -15,9 +15,7 @@ export default {
             require: true,
             type: String
         },
-        'urgency': {
-            type: String
-        }
+        'urgency': String
     },
 }
 </script>
