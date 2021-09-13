@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <aside class="bg-primary">
-            <img src="../assets/images/facilita-login-img.svg" alt="">
+            <img src="../../assets/images/facilita-login-img.svg" alt="">
         </aside>
         <main>
             <form action="#">
