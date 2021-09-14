@@ -7,13 +7,51 @@
    viewBox="0 0 85.112007 48.774292"
    version="1.1"
    id="svg52665"
+   sodipodi:docname="facilita-login-img.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview50"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.3024019"
+     inkscape:cx="190.41742"
+     inkscape:cy="-3.4551548"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg52665" />
   <defs
      id="defs52662" />
+  <rect
+     style="fill:#2693ff;fill-rule:evenodd;stroke:none;stroke-width:0.594642;stroke-linecap:round;stroke-linejoin:round;fill-opacity:1"
+     id="rect889"
+     width="94.187393"
+     height="55.823921"
+     x="-4.9310503"
+     y="-2.3197968"
+     rx="2.0723674"
+     ry="2.0723674"
+     inkscape:export-filename="C:\dev\facilita\exemple\src\assets\images\facilita-login-img.png"
+     inkscape:export-xdpi="81.699997"
+     inkscape:export-ydpi="81.699997" />
   <g
      id="layer1"
-     transform="translate(-86.667554,-75.921748)">
+     transform="translate(-86.667554,-75.921748)"
+     inkscape:export-filename="C:\dev\facilita\exemple\src\assets\images\facilita-login-img.png"
+     inkscape:export-xdpi="81.699997"
+     inkscape:export-ydpi="81.699997">
     <g
        id="g46978"
        transform="translate(70.560108,35.014108)">

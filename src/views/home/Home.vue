@@ -139,26 +139,29 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@require "../../assets/styles/breakpoints"
+
 .home
   display flex
   flex-direction row
-  height 100%
+  min-height 100%
 
   aside
     display flex
     flex-direction column
     align-items center
-    justify-content center
     width 228px
 
     h3
         margin-left -24px
+        padding-top 120px
 
   main
     display flex
     flex 1
     flex-direction column
     align-items center
+    padding-bottom 24px
 
 .category-list
     font-size 14px
@@ -195,18 +198,16 @@ export default {
 .task-item
     width 100%
 
-// @media (max-width: 650px)
-//     .home
-//         flex-direction column
-    
-
-@media (max-width: 1082px)
+@media (max-width: $bp-lg)
     .home
         flex-direction column
 
         aside
             width 100%
             padding 16px
+
+            h3 
+                padding 24px
 
     .category-list
         display flex
@@ -220,8 +221,9 @@ export default {
 
     .container-tasks
         width 60%
+        padding-top 24px
 
-@media (max-width: 650px)
+@media (max-width: $bp-md)
     .container-tasks
         width 90%
 </style>
