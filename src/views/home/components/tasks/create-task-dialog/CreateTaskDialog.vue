@@ -7,17 +7,17 @@
                     <font-awesome-icon class="close-icon" icon="times" @click="close" />
                 </div>
                 <div class="dialog-content">
-                    <Input label="Título"></Input>
-                    <Input label="Descrição"></Input>
+                    <Input label="Título" v-model="dataTask.title"></Input>
+                    <Input label="Descrição" v-model="dataTask.description"></Input>
                 </div>
                 <div class="dialog-footer">
                 <div class="category-radio">
-                    <input type="radio" id="urgent" name="fav_language" value="Urgente">
+                    <input type="radio" id="urgent" name="fav_language" value="Urgente" v-model="dataTask.category">
                     <label for="urgent">Urgente</label><br>
-                    <input type="radio" id="important" name="fav_language" value="Importante">
+                    <input type="radio" id="important" name="fav_language" value="Importante" v-model="dataTask.category">
                     <label for="important">Importante</label><br>
                 </div>
-                <button class="bg-success" @click="close" disabled>Adicionar</button>
+                <button class="bg-success" @click="confirmAndClose" :disabled="!validateForm">Adicionar</button>
                 </div>
             </form>
         </Card>
@@ -29,8 +29,21 @@ import Modal from '../../../../../shared/components/modal/Modal.vue';
 import Card from '../../../../../shared/components/card/Card.vue';
 import Input from '../../../../../shared/components/input/Input.vue';
 
-function close() {
-    this.$emit('onClose', this.dataTask);
+function close(event) {
+    event.preventDefault();
+    this.$emit('onClose');
+    this.dataTask = {};
+}
+
+function confirmAndClose(event) {
+    event.preventDefault();
+    const newTask = { ...this.dataTask };
+    this.$emit('onClose', newTask);
+    this.dataTask = {};
+}
+
+function validateForm() {
+    return (this.dataTask.title && this.dataTask.description);
 }
 
 export default {
@@ -42,7 +55,7 @@ export default {
     },
     data() {
         return {
-            dataTask: null
+            dataTask: {}
         }
     },
     props: {
@@ -50,10 +63,14 @@ export default {
             type: Boolean,
             default: false
         },
-        'task': null,
+        'task': {},
     },
     methods: {
-        close
+        close,
+        confirmAndClose
+    },
+    computed: {
+        validateForm
     }
 }
 </script>
