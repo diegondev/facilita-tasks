@@ -144,6 +144,7 @@ export default {
 .home
   display flex
   flex-direction row
+  min-height 100%
 
   aside
     display flex
