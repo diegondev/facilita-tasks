@@ -25,7 +25,7 @@ Projeto de front-end para seleção técnica da empresa App Facilita. O projeto 
 
 #### Extras
 
- - [ ] Responsividade das telas
+ - [x] Responsividade das telas
  - [ ] Comente o código criando uma mini documentação
  - [x] Hospede o projeto em um servidor e nos mande a URL para visualização.
 
