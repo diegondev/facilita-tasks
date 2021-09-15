@@ -5,11 +5,7 @@
         </div>
         <div v-if="open" class="more-menu-collapse">
             <ul class="more-menu-list">
-                <li  class="more-menu-list-item" 
-                v-for="(menu, key) of menus" :key="key"
-                @click="execAction(menu.action)">
-                    {{ menu.title }}
-                </li>
+                <slot></slot>
             </ul>
             <font-awesome-icon icon="ellipsis-v" class="icon" @click="close"/>
         </div>
@@ -18,38 +14,19 @@
 
 <script>
 
-/* Menus
-[
-    {
-        title: '',
-        action: () => {}
-    },
-    ...
-]
-*/
-
 function close() {
     this.open = false;
 }
 
-function execAction(action) {
-    action();
-    this.close();
-}
-
 export default {
     name: "MoreMenu",
-    props: {
-        'menus': []
-    },
     data: () => {
         return {
             open: false
         }
     },
     methods: {
-        close,
-        execAction
+        close
     }
 }
 </script>
@@ -82,11 +59,4 @@ export default {
 .more-menu-list
     list-style none
     margin-left 8px
-
-.more-menu-list-item
-    width 100%
-    white-space nowrap
-    padding 8px 16px
-    border-radius 5px
-    cursor pointer
 </style>

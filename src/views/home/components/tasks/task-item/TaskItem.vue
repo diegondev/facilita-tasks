@@ -22,10 +22,10 @@ function urgencyFromCategory() {
     let urgency = '';
 
     switch (this.category) {
-        case 'Importante':
+        case 'Importantes':
             urgency = 'important';
             break;
-        case 'Urgente':
+        case 'Urgentes':
             urgency = 'urgent';
             break;
         default:
