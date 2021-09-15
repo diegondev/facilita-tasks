@@ -31,8 +31,8 @@ Projeto de front-end para seleção técnica da empresa App Facilita. O projeto 
 
 ### Level 2
 
-- [ ] Programar a aplicação TodoList
-- [ ] Utilizar localstorage para persistir os dados
+- [x] Programar a aplicação TodoList
+- [x] Utilizar localstorage para persistir os dados
 - [x] Utilizar ECMAScript 6+
 - [x] Colocar projeto no Github
 
