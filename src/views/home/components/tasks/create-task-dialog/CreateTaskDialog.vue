@@ -12,9 +12,9 @@
                 </div>
                 <div class="dialog-footer">
                 <div class="category-radio">
-                    <input type="radio" id="urgent" name="fav_language" value="Urgente" v-model="dataTask.category">
+                    <input type="radio" id="urgent" name="fav_language" value="Urgentes" v-model="dataTask.category">
                     <label for="urgent">Urgente</label><br>
-                    <input type="radio" id="important" name="fav_language" value="Importante" v-model="dataTask.category">
+                    <input type="radio" id="important" name="fav_language" value="Importantes" v-model="dataTask.category">
                     <label for="important">Importante</label><br>
                 </div>
                 <button class="bg-success" @click="confirmAndClose" :disabled="!validateForm">Adicionar</button>

@@ -6,9 +6,11 @@
                 <li 
                     v-for="(category, key) of categories" 
                     :key="key" 
-                    class="category-item" :class="{'selected': key == 0}">
+                    class="category-item" :class="{'selected': key == 0}"
+                    @click="selectCategoryFilter(category.name)">
                     <font-awesome-icon class="category-item-icon" icon="chevron-right"/>
                     <span class="category-item-title">{{ category.name }}</span>
+
                     <Badge v-if="category.quantity"
                         :urgency="category.urgency"
                         :value="category.quantity">
@@ -20,11 +22,15 @@
             <div class="container-tasks">
                 <h2>Minhas Tarefas</h2>
                 <span>Olá 
-                    <span class="text-emphasis">Diego Nascimento</span>
-                    , você tem 
-                    <router-link to="/tasks">4 tarefas</router-link> 
-                    pendentes
+                    <span class="text-emphasis">Diego Nascimento</span>,
+                    <span v-if="incompleteTasks.length > 0">
+                        você tem 
+                        <router-link to="/tasks">{{ incompleteTasks.length }} tarefas</router-link> 
+                        pendentes
+                    </span>
+                    <span v-if="incompleteTasks.length < 1">você não tem tarefas pendentes.</span>
                 </span>
+
                 <Input class="input-search"
                     icon="search" 
                     placeholder="Buscar tarefa"
@@ -36,17 +42,21 @@
                     :title="task.title"
                     :category="task.category"
                     :checked="task.checked"
-                    @onChangeCheck="task.checked = $event" >
+                    @onChangeCheck="onCheckTask(key, $event)" >
                     <template v-slot:trailing>
-                        <MoreMenu :menus="taskItemMenus"/>
+                        <MoreMenu>
+                            <MoreMenuItem @click="onOpenCreateTaskDialog(key)">Editar</MoreMenuItem>
+                            <MoreMenuItem @click="onOpenDeleteTaskDialog(key)">Excluir</MoreMenuItem>
+                        </MoreMenu>
                     </template>
                 </TaskItem>
 
+                <!-- Botão de criar nova task -->
                 <FloatActionButton icon="plus" @click="onOpenCreateTaskDialog" />
                 
+                <!-- Dialogs -->
                 <CreateTaskDialog :open="modalCreateTask" @onClose="onCloseCreateTaskDialog"/>
-                <DeleteTaskDialog :open="modalDeleteConfimation" @onClose="onCloseDeleteTaskDialog"/>
-                
+                <DeleteTaskDialog :data="modalDeleteConfimation" @onClose="onCloseDeleteTaskDialog"/>
             </div>
         </main>
     </div>
@@ -57,9 +67,17 @@ import Badge from '../../shared/components/badge/Badge.vue';
 import Input from '../../shared/components/input/Input.vue';
 import FloatActionButton from '../../shared/components/float-action-button/FloatActionButton.vue';
 import MoreMenu from '../../shared/components/more-menu/MoreMenu.vue';
+import MoreMenuItem from '../../shared/components/more-menu/more-menu-item/MoreMenuItem.vue';
 import TaskItem from './components/tasks/task-item/TaskItem.vue';
 import CreateTaskDialog from './components/tasks/create-task-dialog/CreateTaskDialog.vue';
 import DeleteTaskDialog from './components/tasks/delete-task-dialog/DeleteTaskDialog.vue';
+import TaskService from '../../services/task-service';
+
+const taskService = new TaskService(localStorage);
+
+function mounted() {
+    this.tasks = taskService.get();
+}
 
 function filteredTaskList() {
     return this.tasks
@@ -67,27 +85,112 @@ function filteredTaskList() {
             task => task.title
                         ?.toUpperCase()
                         .includes(this.search.toUpperCase())
+        )
+        .filter(
+            task => {
+                if (this.filters.noCategory)
+                    return !task.category;
+
+                if (this.filters.finalized)
+                    return task.checked;
+
+                if (this.filters.category)
+                    return task.category ? task.category == this.filters.category : false;
+                
+                return true;
+            }
         ).sort((task0, task1) => {
-            if (task0.checked && !task1.checked) return -1;
-            if (task1.checked && !task0.checked) return 1;
+            if ((task0.checked && !task1.checked)) return -1;
+            if ((task1.checked && !task0.checked)) return 1;
             return 0;
         });
 }
 
+function categories() {
+    return [
+        { name: 'Todas', },
+        { 
+            name: 'Urgentes',    
+            quantity: this.tasks.filter(task => task.category == 'Urgentes').length,   
+            urgency: 'urgent', 
+        },
+        { 
+            name: 'Importantes', 
+            quantity: this.tasks.filter(task => task.category == 'Importantes').length, 
+            urgency: 'important', 
+        },
+        { name: 'Outras', },
+        { name: 'Finalizadas', }
+    ];
+}
+
+function selectCategoryFilter(category) {
+    switch (category) {
+        case 'Todas':
+            this.filters.category = '';
+            break;
+        case 'Urgentes':
+            this.filters.category = 'Urgentes';
+            break;
+        case 'Importantes':
+            this.filters.category = 'Importantes';
+            break;
+        case 'Outras':
+            this.filters.noCategory = true;
+            break;
+        case 'Finalizadas':
+            this.filters.finalized = true;
+            break;
+    }
+
+    if (category != 'Outras')
+        this.filters.noCategory = false;
+
+    if (category != 'Finalizadas')
+        this.filters.finalized = false;
+}
+
+function incompleteTasks() {
+    return this.tasks
+        .filter(task => !task.checked);
+}
+
+function onCheckTask(index, value) {
+    this.tasks[index].checked = value;
+    taskService.save(this.tasks);
+}
+
 function onOpenCreateTaskDialog() {
-    this.modalCreateTask = true
+    console.log('open create dialig')
+    this.modalCreateTask = true;
+
+    console.log(this.modalCreateTask)
 }
 
-function onCloseCreateTaskDialog() {
-    this.modalCreateTask = false
+function onCloseCreateTaskDialog(task) {
+    if (task) {
+        task['checked'] = false;
+        this.tasks.push(task);
+    }
+    this.modalCreateTask = false;
 }
 
-function onOpenDeleteTaskDialog() {
-    this.modalDeleteConfimation = true
+function onOpenDeleteTaskDialog(index) {
+    this.modalDeleteConfimation = {
+        open: true,
+        indexTask: index
+    };
 }
 
-function onCloseDeleteTaskDialog() {
-    this.modalDeleteConfimation = false
+function onCloseDeleteTaskDialog(event) {
+    if (event.confirm) {
+        taskService.delete(event.indexTask);
+        this.tasks = taskService.get();
+    }
+    this.modalDeleteConfimation = {
+        open: false,
+        indexTask: -1
+    };
 }
 
 export default {
@@ -99,42 +202,44 @@ export default {
         MoreMenu,
         TaskItem,
         CreateTaskDialog,
-        DeleteTaskDialog
+        DeleteTaskDialog,
+        MoreMenuItem
     },
+    mounted,
     data() {
         return {
             search: '',
-            categories: [
-                { name: 'Todas', },
-                { name: 'Urgentes',    quantity: 1,   urgency: 'urgent', },
-                { name: 'Importantes', quantity: 2, urgency: 'important', },
-                { name: 'Outras', },
-                { name: 'Finalizadas', }
-            ],
-            tasks: [
-                {title: 'Planejar desenvolvimento do app TodoList', checked: true, category: 'Urgente'}, 
-                {title: 'Criar projeto Vue.js',  checked: false, category: 'Importante'}, 
-                {title: 'Montar telas HTML/CSS', checked: false,  category: 'Importante'}, 
-                {title: 'Separar componentes',   checked: false},
-                {title: 'Programar componentes', checked: false},
-            ],
-            taskItemMenus: [
-                { title: 'Editar', action: onOpenDeleteTaskDialog.bind(this) },
-                { title: 'Excluir', action: onOpenDeleteTaskDialog.bind(this) }
-            ],
+            filters: {
+                category: '',
+                noCategory: false,
+                finalized: false
+            },
+            tasks: [],
             modalCreateTask: false,
-            modalDeleteConfimation: false
+            modalDeleteConfimation: {
+                open: false,
+                indexTask: -1
+            }
         }
-  },
-  computed: {
-        filteredTaskList
-  },
-  methods: {
+    },
+    computed: {
+        filteredTaskList,
+        incompleteTasks,
+        categories
+    },
+    methods: {
+        onCheckTask,
+        selectCategoryFilter,
         onOpenCreateTaskDialog,
         onCloseCreateTaskDialog,
         onOpenDeleteTaskDialog,
         onCloseDeleteTaskDialog
-  }
+    },
+    watch: {
+        tasks(newTasks) {
+            taskService.save(newTasks);
+        }
+    }
 }
 </script>
 
