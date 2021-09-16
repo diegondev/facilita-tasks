@@ -244,3 +244,24 @@ $float-action-button-color = $success-color
 .dialog-content
     .dialog-figure
         background-color $checkbox-color
+
+// SCROLL STYLE
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 3px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: trasparent;
+    border-radius: 2px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: alpha($color, .5)
+    border-radius: 2px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: alpha($color, .6)
+}
