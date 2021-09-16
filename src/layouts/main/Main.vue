@@ -48,6 +48,9 @@ export default {
     grid-area 'content'
     overflow auto
 
+.logo
+    display none
+
 @media (max-width: $bp-sm)
     .main-container 
         overflow hidden
@@ -55,6 +58,7 @@ export default {
         grid-template-rows 84px calc(100vh - 168px) 84px
 
     .logo
+        display flex
         grid-column 1 / 2
         grid-row 1 / 2
 
