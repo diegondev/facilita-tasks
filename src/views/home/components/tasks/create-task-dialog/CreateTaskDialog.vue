@@ -126,13 +126,17 @@ export default {
     justify-content space-between
     align-items flex-start
 
-    .category-radio
+    .category-radio-group
         display flex
-        align-items center
+
+        .category-radio
+            display flex
+            align-items center
 
         input
             margin-right 4px
 
         label
             margin-right 16px
+
 </style>
