@@ -12,6 +12,10 @@ function onClick() {
 export default {
     name: 'Checkbox',
     props: {
+        /**
+         * Valor booleano de que define se está marcado ou não
+         * @model
+         */
         'value': {
             type: Boolean,
             default: false

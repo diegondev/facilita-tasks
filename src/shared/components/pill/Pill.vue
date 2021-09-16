@@ -1,6 +1,6 @@
 <template>
     <div class="pill"
-        :class="urgency">
+        :class="className">
         <div class="pill-content">
             {{ value }}
         </div>
@@ -11,11 +11,18 @@
 export default {
     name: "Pill",
     props: {
+        /**
+         * Define o conteúdo da pill
+         */
         'value': {
             require: true,
             type: String
         },
-        'urgency': String
+        /**
+         * Define a cor de fundo da pill
+         * @values urgent, important
+         */
+        'className': String
     },
 }
 </script>

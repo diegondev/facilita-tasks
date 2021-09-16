@@ -34,48 +34,50 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-    .login 
-        display flex
-        flex-direction row
-        height 100vh
+@require "../../assets/styles/breakpoints"
 
-    aside
-        display flex
-        flex 2
+.login 
+    display flex
+    flex-direction row
+    height 100vh
 
-        img
-            width 60%
-            margin auto
+aside
+    display flex
+    flex 2
 
-    main
-        flex 3
+    img
+        width 60%
+        margin auto
+
+main
+    flex 3
+    display flex
+    flex-direction column
+    justify-content center
+    align-items: center
+
+    form 
         display flex
         flex-direction column
         justify-content center
-        align-items: center
+        width 40%
 
-        form 
-            display flex
-            flex-direction column
-            justify-content center
-            width 40%
+    .form-title
+        margin-bottom 42px
+        font-weight bold
 
-        .form-title
-            margin-bottom 42px
-            font-weight bold
+    button
+        margin-top 18px
+        margin-bottom 42px
 
-        button
-            margin-top 18px
-            margin-bottom 42px
-
-    a
-        width 100%
-        font-size 12px
+a
+    width 100%
+    font-size 12px
 
 .input-container
     margin 0
 
-@media (max-width: 650px)
+@media (max-width: $bp-sm)
     .login
         flex-direction column
 
@@ -83,7 +85,7 @@ export default {
         form
             width 90%
 
-@media (max-width: 900px)
+@media (max-width: $bp-lg)
     main
         form
             width 80%

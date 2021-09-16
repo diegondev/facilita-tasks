@@ -24,8 +24,8 @@ export default {
 .main-container 
     display grid
     height 100vh
-    grid-template-columns 106px 1fr
-    grid-template-rows 84px 1fr
+    grid-template-columns 106px calc(100vw - 106px)
+    grid-template-rows 84px calc(100vh - 84px)
     grid-template-areas "sidenav header"
                         "sidenav content";
 
@@ -43,5 +43,6 @@ export default {
     grid-column 2
     grid-row 2
     grid-area 'content'
+    overflow auto
     
 </style>

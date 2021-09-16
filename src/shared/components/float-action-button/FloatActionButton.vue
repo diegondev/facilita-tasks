@@ -12,6 +12,10 @@ function onClick() {
 export default {
     name: 'FloatActionButton',
     props: {
+        /**
+         * Nome do ícon que será exibido no centro do botão.
+         * O ícone deve fazer parte da biblioteca de ícone Font Awesome Icons
+         */
         'icon': String
     },
     methods: {

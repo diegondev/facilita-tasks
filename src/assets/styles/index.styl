@@ -1,5 +1,6 @@
-@import "./_colors.styl"
-@import "./_fonts.styl"
+@import "colors"
+@import "fonts"
+@import "breakpoints"
 
 $font-family = SVN-Gilroy
 $box-shadow-default = 1px 1px 5px 0px $input-color
@@ -243,3 +244,24 @@ $float-action-button-color = $success-color
 .dialog-content
     .dialog-figure
         background-color $checkbox-color
+
+// SCROLL STYLE
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 3px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: trasparent;
+    border-radius: 2px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: alpha($color, .5)
+    border-radius: 2px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: alpha($color, .6)
+}
