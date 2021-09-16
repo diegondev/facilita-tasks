@@ -16,20 +16,25 @@ class TaskService {
         return this.storage.setItem(this.tag, JSON.stringify(tasks));
     }
 
-    update(index, task) {
+    update(task) {
         const tasks = this.get();
+        const taskIndex = this.findIndexFromId(task.pid, tasks);
 
-        tasks[index] = task;
+        tasks[taskIndex] = task;
 
         this.save(tasks);
     }
 
-    delete(index) {
-        console.log(index)
+    delete(id) {
         const tasks = this.get();
-        tasks.splice(index, 1);
-        console.log(tasks)
+        const taskIndex = this.findIndexFromId(id, tasks);
+
+        tasks.splice(taskIndex, 1);
         this.save(tasks);
+    }
+
+    findIndexFromId(id, tasks) {
+        return tasks.findIndex(task => task.pid == id);
     }
 }
 
