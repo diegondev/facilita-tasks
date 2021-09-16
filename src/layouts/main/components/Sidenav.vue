@@ -50,6 +50,7 @@ export default {
 
 
 <style lang="stylus" scoped>
+@require "../../../assets/styles/breakpoints"
 
 .sidenav-container
     display flex
@@ -84,5 +85,19 @@ export default {
         svg
             font-size 32px
             margin-bottom 8px
+
+@media (max-width: $bp-sm)
+    .nav-logo
+        display none
+
+    .nav-list
+        display flex
+        justify-content center
+        height 84px
+        list-style none
+
+        .nav-item
+            a
+                width 84px
 
 </style>
