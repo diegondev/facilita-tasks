@@ -50,7 +50,7 @@
                 </TaskItem>
 
                 <!-- Botão de criar nova task -->
-                <FloatActionButton icon="plus" @click="onOpenCreateTaskDialog" />
+                <FloatActionButton class="float-button" icon="plus" @click="onOpenCreateTaskDialog" />
                 
                 <!-- Dialogs -->
                 <CreateTaskDialog :data="modalCreateTask" @onClose="onCloseCreateTaskDialog"/>
@@ -346,4 +346,13 @@ export default {
 @media (max-width: $bp-md)
     .container-tasks
         width 90%
+
+
+@media (max-width: $bp-sm)
+    .container-tasks
+        padding-bottom 84px
+
+    .float-button
+        margin-bottom 84px
+
 </style>
