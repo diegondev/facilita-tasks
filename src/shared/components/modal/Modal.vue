@@ -11,7 +11,12 @@ function close() {
 export default {
     name: 'Modal',
     props: {
+        /**
+         * Valor que define se a modal é exibida ou não
+         * @model
+         */
         value: {
+            
             type: Boolean,
             default: false
         }

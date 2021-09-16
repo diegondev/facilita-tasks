@@ -1,3 +1,6 @@
+/**
+ * Diretiva que detecta quanto o usuário clica fora do componente que a possui
+ */
 const ClickOutside = {
     bind: function (el, binding, vnode) {
         el.clickOutsideEvent = function (event) {
