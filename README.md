@@ -11,7 +11,7 @@ Projeto de front-end para seleção técnica da empresa App Facilita. O projeto 
 #### 🚧  Em construção...  🚧
 
  - [x] Level 1
- - [ ] Level 2
+ - [x] Level 2
 
 ## Desafio
 
@@ -26,7 +26,7 @@ Projeto de front-end para seleção técnica da empresa App Facilita. O projeto 
 #### Extras
 
  - [x] Responsividade das telas
- - [ ] Comente o código criando uma mini documentação
+ - [x] Comente o código criando uma mini documentação
  - [x] Hospede o projeto em um servidor e nos mande a URL para visualização.
 
 ### Level 2
@@ -38,9 +38,9 @@ Projeto de front-end para seleção técnica da empresa App Facilita. O projeto 
 
 #### Extras
 
- - [ ] Crie o recurso de edição da tarefa
+ - [x] Crie o recurso de edição da tarefa
  - [x] Implemente uma busca que utiliza os campos título e descrição juntos.
- - [ ] Ao listar todas as tarefas, ordene a lista de acordo com a prioridade:  - Urgentes, Importantes, Outras
+ - [x] Ao listar todas as tarefas, ordene a lista de acordo com a prioridade:  - Urgentes, Importantes, Outras
  - [ ] Utilize o Vuex
 
 ## Demonstração da aplicação
