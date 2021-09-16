@@ -2,21 +2,19 @@
     <div class="home bg-defalt">
         <aside class="categories-list-container">
             <h3>Categorias</h3>
-            <ul class="category-list">
-                <li 
-                    v-for="(category, key) of categories" 
-                    :key="key" 
-                    class="category-item" :class="{'selected': key == 0}"
-                    @click="selectCategoryFilter(category.name)">
-                    <font-awesome-icon class="category-item-icon" icon="chevron-right"/>
-                    <span class="category-item-title">{{ category.name }}</span>
-
-                    <Badge v-if="category.quantity"
-                        :urgency="category.urgency"
-                        :value="category.quantity">
-                    </Badge>
-                </li>
-            </ul>
+            <CategoryList>
+                <CategoryListItem title="Todas" data="" @click="selectCategoryFilter" :selected="filters.category == ''"></CategoryListItem>
+                <CategoryListItem v-for="(category, index) of categories" :key="index" 
+                    :title="category.name" 
+                    :data="category.name" 
+                    :badge="category.quantity"
+                    :badgeClass="category.className"
+                    @click="selectCategoryFilter"
+                    :selected="filters.category == category.name"
+                ></CategoryListItem>
+                <CategoryListItem title="Outras" data="Outras" @click="selectCategoryFilter" :selected="filters.noCategory"></CategoryListItem>
+                <CategoryListItem title="Finalizadas" data="Finalizadas" @click="selectCategoryFilter" :selected="filters.finalized"></CategoryListItem>
+            </CategoryList>
         </aside>
         <main>
             <div class="container-tasks">
@@ -42,11 +40,11 @@
                     :title="task.title"
                     :category="task.category"
                     :checked="task.checked"
-                    @onChangeCheck="onCheckTask(key, $event)" >
+                    @onChangeCheck="onCheckTask(task)" >
                     <template v-slot:trailing>
                         <MoreMenu>
-                            <MoreMenuItem @click="onOpenCreateTaskDialog(key)">Editar</MoreMenuItem>
-                            <MoreMenuItem @click="onOpenDeleteTaskDialog(key)">Excluir</MoreMenuItem>
+                            <MoreMenuItem @click="onOpenCreateTaskDialog(task)">Editar</MoreMenuItem>
+                            <MoreMenuItem @click="onOpenDeleteTaskDialog(task)">Excluir</MoreMenuItem>
                         </MoreMenu>
                     </template>
                 </TaskItem>
@@ -55,7 +53,7 @@
                 <FloatActionButton icon="plus" @click="onOpenCreateTaskDialog" />
                 
                 <!-- Dialogs -->
-                <CreateTaskDialog :open="modalCreateTask" @onClose="onCloseCreateTaskDialog"/>
+                <CreateTaskDialog :data="modalCreateTask" @onClose="onCloseCreateTaskDialog"/>
                 <DeleteTaskDialog :data="modalDeleteConfimation" @onClose="onCloseDeleteTaskDialog"/>
             </div>
         </main>
@@ -63,7 +61,6 @@
 </template>
 
 <script>
-import Badge from '../../shared/components/badge/Badge.vue';
 import Input from '../../shared/components/input/Input.vue';
 import FloatActionButton from '../../shared/components/float-action-button/FloatActionButton.vue';
 import MoreMenu from '../../shared/components/more-menu/MoreMenu.vue';
@@ -71,9 +68,14 @@ import MoreMenuItem from '../../shared/components/more-menu/more-menu-item/MoreM
 import TaskItem from './components/tasks/task-item/TaskItem.vue';
 import CreateTaskDialog from './components/tasks/create-task-dialog/CreateTaskDialog.vue';
 import DeleteTaskDialog from './components/tasks/delete-task-dialog/DeleteTaskDialog.vue';
+import CategoryList from './components/categories/category-list/CategoryList.vue';
+import CategoryListItem from './components/categories/category-list/category-list-item/CategoryListItem.vue';
 import TaskService from '../../services/task-service';
+import CategoryService from '../../services/category-service';
+import Task from '../../model/task-model';
 
 const taskService = new TaskService(localStorage);
+const categoryService = new CategoryService();
 
 function mounted() {
     this.tasks = taskService.get();
@@ -81,11 +83,13 @@ function mounted() {
 
 function filteredTaskList() {
     return this.tasks
+        // Filtro da busca
         .filter(
             task => task.title
                         ?.toUpperCase()
                         .includes(this.search.toUpperCase())
         )
+        // Filtro da categoria selecionada
         .filter(
             task => {
                 if (this.filters.noCategory)
@@ -95,59 +99,53 @@ function filteredTaskList() {
                     return task.checked;
 
                 if (this.filters.category)
-                    return task.category ? task.category == this.filters.category : false;
+                    return task.category ? task.category.name == this.filters.category : false;
                 
                 return true;
             }
-        ).sort((task0, task1) => {
-            if ((task0.checked && !task1.checked)) return -1;
-            if ((task1.checked && !task0.checked)) return 1;
-            return 0;
-        });
+        )
+        // Ordenação por checados
+        // .sort((task0, task1) => {
+        //     if ((task0.checked && !task1.checked)) return -1;
+        //     if ((task1.checked && !task0.checked)) return 1;
+        //     return 0;
+        // })
+        // Ordenação por categoria
+        .sort(compareByCategory);
+}
+
+function compareByCategory(task0, task1) {
+    const categoryList = categoryService.get();
+
+    // Atribui pontos a categoria. A precedencia é a ordem das categorias
+    for (const index of categoryList.keys()) 
+        categoryList[index].points = categoryList.length - index;
+
+    // Verifica quantos pontos cada task tem baseado em sua categoria
+    const task1Points = categoryList.find(cat => cat.pid == task1.category?.pid)?.points ?? 0;
+    const task0Points = categoryList.find(cat => cat.pid == task0.category?.pid)?.points ?? 0;
+
+    return  task1Points - task0Points;
 }
 
 function categories() {
-    return [
-        { name: 'Todas', },
-        { 
-            name: 'Urgentes',    
-            quantity: this.tasks.filter(task => task.category == 'Urgentes').length,   
-            urgency: 'urgent', 
-        },
-        { 
-            name: 'Importantes', 
-            quantity: this.tasks.filter(task => task.category == 'Importantes').length, 
-            urgency: 'important', 
-        },
-        { name: 'Outras', },
-        { name: 'Finalizadas', }
-    ];
-}
-
-function selectCategoryFilter(category) {
-    switch (category) {
-        case 'Todas':
-            this.filters.category = '';
-            break;
-        case 'Urgentes':
-            this.filters.category = 'Urgentes';
-            break;
-        case 'Importantes':
-            this.filters.category = 'Importantes';
-            break;
-        case 'Outras':
-            this.filters.noCategory = true;
-            break;
-        case 'Finalizadas':
-            this.filters.finalized = true;
-            break;
+    const categoryList = categoryService.get();
+    for(let category of categoryList) {
+        category.quantity = this.tasks.filter(task => task.category?.name == category.name).length;
     }
 
-    if (category != 'Outras')
-        this.filters.noCategory = false;
+    return categoryList;
+} 
 
-    if (category != 'Finalizadas')
-        this.filters.finalized = false;
+function selectCategoryFilter(category) {
+    if (category != 'Outras' && category != 'Finalizadas')
+        this.filters.category = category;
+    else
+        this.filters.category = null;
+
+    this.filters.noCategory = category == 'Outras';
+    
+    this.filters.finalized = category == 'Finalizadas';
 }
 
 function incompleteTasks() {
@@ -155,55 +153,82 @@ function incompleteTasks() {
         .filter(task => !task.checked);
 }
 
-function onCheckTask(index, value) {
-    this.tasks[index].checked = value;
-    taskService.save(this.tasks);
+function onCheckTask(task) {
+    task.checked = !task.checked;
+    this.tasks = [...this.tasks];
 }
 
-function onOpenCreateTaskDialog() {
-    console.log('open create dialig')
-    this.modalCreateTask = true;
-
-    console.log(this.modalCreateTask)
+function onOpenCreateTaskDialog(task) {
+    if (task)
+        this.modalCreateTask = {
+            open: true,
+            task: task
+        };
+    else
+        this.modalCreateTask = {
+            open: true,
+            task: {}
+        };
 }
 
-function onCloseCreateTaskDialog(task) {
-    if (task) {
-        task['checked'] = false;
-        this.tasks.push(task);
+function onCloseCreateTaskDialog(event) {
+    // Caso o retorno não esteja vazio, trata-se a criação ou atualziação
+    if (event) {
+        const task = event;
+        // Se a task já existe, atualze
+        if (task.pid) {
+            const index = this.tasks.findIndex(tsk => tsk.pid == task.pid);
+            this.tasks.splice(index, 1, task);
+        // Se a task ainda não existe, crie
+        } else {
+            const newTask = new Task(
+                task.title,
+                task.description,
+                task.category,
+                task.checked
+            );
+
+            this.tasks.push(newTask);
+        }
     }
-    this.modalCreateTask = false;
+
+    this.modalCreateTask = {
+        open: false,
+        task: {}
+    }
 }
 
-function onOpenDeleteTaskDialog(index) {
+function onOpenDeleteTaskDialog(task) {
     this.modalDeleteConfimation = {
         open: true,
-        indexTask: index
+        task: task
     };
 }
 
 function onCloseDeleteTaskDialog(event) {
     if (event.confirm) {
-        taskService.delete(event.indexTask);
-        this.tasks = taskService.get();
+        const index = this.tasks.findIndex(tsk => tsk.pid == event.task.pid);
+        this.tasks.splice(index, 1);
     }
+
     this.modalDeleteConfimation = {
         open: false,
-        indexTask: -1
+        task: {}
     };
 }
 
 export default {
     name: 'Home',
     components: {
-        Badge,
         Input,
         FloatActionButton,
         MoreMenu,
         TaskItem,
         CreateTaskDialog,
         DeleteTaskDialog,
-        MoreMenuItem
+        MoreMenuItem,
+        CategoryList,
+        CategoryListItem
     },
     mounted,
     data() {
@@ -215,29 +240,39 @@ export default {
                 finalized: false
             },
             tasks: [],
-            modalCreateTask: false,
+            modalCreateTask: {
+                open: false,
+                task: {}
+            },
             modalDeleteConfimation: {
                 open: false,
-                indexTask: -1
+                task: {}
             }
         }
     },
     computed: {
+        categories,
         filteredTaskList,
         incompleteTasks,
-        categories
+        checks() {
+            return this.tasks.map(task => task.checked)
+        }
     },
     methods: {
         onCheckTask,
+        compareByCategory,
         selectCategoryFilter,
         onOpenCreateTaskDialog,
         onCloseCreateTaskDialog,
         onOpenDeleteTaskDialog,
-        onCloseDeleteTaskDialog
+        onCloseDeleteTaskDialog,
     },
     watch: {
         tasks(newTasks) {
             taskService.save(newTasks);
+        },
+        checks() {
+            taskService.save(this.tasks);
         }
     }
 }
@@ -267,26 +302,6 @@ export default {
     flex-direction column
     align-items center
     padding-bottom 24px
-
-.category-list
-    font-size 14px
-    font-weight bold
-    margin 58px 0
-    list-style none
-
-    .category-item
-        display flex
-        flex-wrap nowrap
-        align-items center
-        margin-bottom 18px
-        cursor pointer
-    
-        .categorty-item-title
-            margin-right 8px
-
-        .category-item-icon
-            font-size 10px
-            margin-right 8px
 
 .input-search
     margin 24px 0

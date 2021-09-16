@@ -19,12 +19,12 @@
 <script>
 import Modal from '../../../../../shared/components/modal/Modal.vue';
 import Card from '../../../../../shared/components/card/Card.vue';
+import Task from '../../../../../model/task-model';
 
 function close(confirm) {
-    console.log(this.data)
     this.$emit('onClose', {
         confirm,
-        indexTask: this.data.indexTask
+        task: this.data.task
     });
 }
 
@@ -42,7 +42,7 @@ export default {
     props: {
         'data': {
             open: Boolean,
-            indexTask: Number
+            task: Task
         },
         'task': null,
     },

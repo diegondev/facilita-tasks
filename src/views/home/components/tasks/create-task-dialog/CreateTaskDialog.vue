@@ -1,5 +1,5 @@
 <template>
-    <Modal :value="open">
+    <Modal :value="data.open">
         <Card class="dialog-container">
             <form>
                 <div class="dialog-title">
@@ -11,11 +11,11 @@
                     <Input label="Descrição" v-model="dataTask.description"></Input>
                 </div>
                 <div class="dialog-footer">
-                <div class="category-radio">
-                    <input type="radio" id="urgent" name="fav_language" value="Urgentes" v-model="dataTask.category">
-                    <label for="urgent">Urgente</label><br>
-                    <input type="radio" id="important" name="fav_language" value="Importantes" v-model="dataTask.category">
-                    <label for="important">Importante</label><br>
+                <div class="category-radio-group">
+                    <div class="category-radio" v-for="category of categories" :key="category.id">
+                        <input type="radio" :id="category.id + category.name" :value="category" v-model="dataTask.category">
+                        <label :for="category.id + category.name">{{ category.name }}</label>
+                    </div>
                 </div>
                 <button class="bg-success" @click="confirmAndClose" :disabled="!validateForm">Adicionar</button>
                 </div>
@@ -25,25 +25,47 @@
 </template>
 
 <script>
-import Modal from '../../../../../shared/components/modal/Modal.vue';
-import Card from '../../../../../shared/components/card/Card.vue';
-import Input from '../../../../../shared/components/input/Input.vue';
+import Modal from '@/shared/components/modal/Modal.vue';
+import Card from '@/shared/components/card/Card.vue';
+import Input from '@/shared/components/input/Input.vue';
+import CategoryService from '@/services/category-service.js';
+import Task from '@/model/task-model.js'
+
+const categoryService = new CategoryService();
 
 function close(event) {
     event.preventDefault();
     this.$emit('onClose');
-    this.dataTask = {};
+    this.resetForm();
 }
 
 function confirmAndClose(event) {
     event.preventDefault();
     const newTask = { ...this.dataTask };
+
+    newTask.checked = this.dataTask.checked;
+
     this.$emit('onClose', newTask);
-    this.dataTask = {};
+    this.resetForm();
 }
 
 function validateForm() {
     return (this.dataTask.title && this.dataTask.description);
+}
+
+function whenDataChange(data) {
+
+    if (data.task.pid) {
+        this.dataTask = { ...data.task };
+    }
+}
+
+function categories() {
+    return categoryService.get();
+}
+
+function resetForm() {
+    this.dataTask = {};
 }
 
 export default {
@@ -59,18 +81,22 @@ export default {
         }
     },
     props: {
-        'open': {
-            type: Boolean,
-            default: false
+        'data': {
+            open: Boolean,
+            task: Task
         },
-        'task': {},
     },
     methods: {
         close,
-        confirmAndClose
+        confirmAndClose,
+        resetForm
     },
     computed: {
-        validateForm
+        validateForm,
+        categories
+    },
+    watch: {
+        data: whenDataChange
     }
 }
 </script>
