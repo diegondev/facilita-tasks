@@ -1,5 +1,5 @@
 <template>
-    <Modal :value="open">
+    <Modal :value="data.open">
         <Card class="dialog-container">
             <div class="dialog-content">
                 <div class="dialog-figure">
@@ -9,8 +9,8 @@
                 <span class="description-message">Esta opção não pode ser desfeita.</span>
             </div>
             <div class="dialog-footer">
-                <button class="bg-success" @click="close">Cancelar</button>
-                <button class="bg-danger" @click="close">Confirmar</button>
+                <button class="bg-success" @click="close(false)">Cancelar</button>
+                <button class="bg-danger" @click="close(true)">Confirmar</button>
             </div>
         </Card>
     </Modal>
@@ -19,9 +19,13 @@
 <script>
 import Modal from '../../../../../shared/components/modal/Modal.vue';
 import Card from '../../../../../shared/components/card/Card.vue';
+import Task from '../../../../../model/task-model';
 
-function close() {
-    this.$emit('onClose', this.dataTask);
+function close(confirm) {
+    this.$emit('onClose', {
+        confirm,
+        task: this.data.task
+    });
 }
 
 export default {
@@ -36,9 +40,9 @@ export default {
         }
     },
     props: {
-        'open': {
-            type: Boolean,
-            default: false
+        'data': {
+            open: Boolean,
+            task: Task
         },
         'task': null,
     },

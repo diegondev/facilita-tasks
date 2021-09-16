@@ -1,6 +1,6 @@
 <template>
     <div class="badge"
-        :class="urgency">
+        :class="className">
         <div class="badge-content">
             {{ validateValue }}
         </div>
@@ -18,11 +18,18 @@ function validateValue() {
 export default {
     name: "Badge",
     props: {
+        /**
+         * Define o conteúdo do badge
+         */
         'value': {
             require: true,
             type: Number
         },
-        "urgency": {
+        /**
+         * Define a cor de fundo do badge
+         * @values urgent, important
+         */
+        "className": {
             type: String
         }
     },

@@ -3,7 +3,7 @@
         <Checkbox :value="checked" @input="onChangeCheck" />
         <div class="task-item-content">
             <span class="task-item-title">{{ title }}</span>
-            <Pill v-if="category" :value="category" :urgency="urgencyFromCategory"/>
+            <Pill v-if="category" :value="category.name" :className="category.className" />
         </div>
         <slot name="trailing"></slot>
     </Card>
@@ -18,22 +18,6 @@ function onChangeCheck() {
     this.$emit('onChangeCheck', !this.checked);
 }
 
-function urgencyFromCategory() {
-    let urgency = '';
-
-    switch (this.category) {
-        case 'Importante':
-            urgency = 'important';
-            break;
-        case 'Urgente':
-            urgency = 'urgent';
-            break;
-        default:
-            break;
-    }
-
-    return urgency;
-}
 
 export default {
     name: 'TaskItem',
@@ -45,10 +29,7 @@ export default {
     props: {
         'title': String,
         'checked': Boolean,
-        'category': String
-    },
-    computed: {
-        urgencyFromCategory
+        'category': Object
     },
     methods: {
         onChangeCheck
